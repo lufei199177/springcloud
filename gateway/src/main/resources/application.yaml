@@ -1,0 +1,48 @@
+server:
+  port: 8773
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+spring:
+  application:
+    name: gateway-demo
+  cloud:
+    gateway:
+      routes:
+        - id: after_route
+          uri: lb://DEMO
+          predicates:
+            - Cookie=mycookie,jack001
+            - Before=2021-01-20T17:42:47.789-07:00[America/Denver]
+            - After=2020-01-20T17:42:47.789-07:00[America/Denver]
+            - Between=2017-01-20T17:42:47.789-07:00[America/Denver], 2021-01-21T17:42:47.789-07:00[America/Denver]
+            - Header=X-Request-Id, \d+
+            - Host=**.somehost.org,localhost:8773
+            - Method=GET,POST
+            - Path=/test/{segment},/user/{segment}
+            #- Query=a
+            - Token=
+          filters:
+            - AddRequestHeader=X-Request-red, Blue-{segment}
+            #- AddRequestParameter=foo, bar-{segment}
+            - AddResponseHeader=foo, bar-{segment}
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - MapRequestHeader=Blue, X-Request-Blue
+            # PrefixPath和predicates里的path有冲突
+            #- PrefixPath=/test
+            - PreserveHostHeader
+            - User=name, lufei
+            #未起作用，以后再看
+            #- name: RequestRateLimiter
+            #  args:
+            #    redis-rate-limiter.replenishRate: 100
+            #    redis-rate-limiter.burstCapacity: 200
+            #    redis-rate-limiter.requestedTokens: 2
+            #- RedirectTo=302, http://localhost:8773
+            #- RemoveRequestHeader=X-Request-red
+            #- RemoveRequestParameter=foo
+            #- RewritePath=/test(?<segment>/?.*), /show
