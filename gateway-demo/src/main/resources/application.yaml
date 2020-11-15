@@ -1,0 +1,28 @@
+server:
+  port: 8780
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+spring:
+  application:
+    name: gateway-demo
+  cloud:
+    gateway:
+      routes:
+        - id: user-gateway
+          uri: lb://USER-DEMO
+          predicates:
+            - Path=/user/**
+          filters:
+            - AddRequestHeader=X-Request-red, Blue
+
+        - id: manager-gateway
+          uri: lb://MANAGER-DEMO
+          predicates:
+            - Path=/manager/**
+          filters:
+            - AddRequestHeader=X-Request-red, Blue
