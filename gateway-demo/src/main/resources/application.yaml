@@ -17,8 +17,8 @@ spring:
           uri: lb://USER-DEMO
           predicates:
             - Path=/user/**
-          filters:
-            - AddRequestHeader=X-Request-red, Blue
+#          filters:
+#            - TokenRelay=
 
         - id: manager-gateway
           uri: lb://MANAGER-DEMO
