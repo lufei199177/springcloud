@@ -17,6 +17,7 @@ spring:
           uri: lb://USER-DEMO
           predicates:
             - Path=/user/**
+            - Token=
 #          filters:
 #            - TokenRelay=
 
