@@ -22,7 +22,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         //只有/me端点作为资源服务器的资源
-        http.requestMatchers().antMatchers( "/userInfo")
+        http.requestMatchers().antMatchers( "/userInfo","/oauth/test")
                 .and().authorizeRequests()
                 .anyRequest().authenticated()
         ;

@@ -8,7 +8,6 @@ import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ public class ClientDetailsServiceConfig {
         String[] scopes = {"READ","WRITE"};
         String clientId="clientId001";
         String clientSecret="clientSecret001";
-        List<String> grantTypes = Collections.singletonList("password");
+        List<String> grantTypes = Arrays.asList("password","client_credentials");
 
         BaseClientDetails clientDetails = new BaseClientDetails();
         clientDetails.setClientId(clientId);
