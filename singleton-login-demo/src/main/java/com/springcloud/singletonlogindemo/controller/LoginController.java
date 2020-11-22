@@ -1,12 +1,9 @@
 package com.springcloud.singletonlogindemo.controller;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.security.Principal;
 
 /**
  * @author lufei
@@ -16,10 +13,10 @@ import java.util.Map;
 @RestController
 public class LoginController {
 
-    @PostMapping("/myLogin")
-    public void login(HttpServletRequest request){
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
+    @GetMapping("/myLogin")
+    public void login(Principal principal){
+        String username=principal.getName();
+        System.out.println();
     }
 
     @GetMapping("/")
